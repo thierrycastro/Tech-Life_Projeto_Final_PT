@@ -35,4 +35,4 @@ Execute o Cypress para um arquivo individual: npx cypress run --spec "cypress/e2
 
 ### Status
 - **Data do Teste:** 16/09/2024
-- **Testador:** Thierry Castro
+- **Testador:** Thierry Castro 
