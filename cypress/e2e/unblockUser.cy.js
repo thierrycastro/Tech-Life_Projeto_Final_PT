@@ -3,41 +3,41 @@ import RegisterPage from "../page-object/registerPage"
 const registerPage = new RegisterPage
 const loginPage = new LoginPage
 
-describe('Cenário: 005 - Desbloqueio de um usuário', () => {
+describe('Scenario: 005 - Unblocking a user', () => {
 
     beforeEach(() => {
        loginPage.standardLogin()
     })
 
-    it("TC005.001 - Desbloquear um Usuário com Sucesso", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+    it("TC005.001 - Unblock a User Successfully", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()
-          //E clica no ícone "Lápis" referente ao usuário existente
+          //And click on the "Pencil" icon for the existing user
           registerPage.getPencilButton().click()
-          //Quando clica no botão "Ativo" do Formulário de Cadastro
+          //When you click on the "Active" button on the Registration Form
           registerPage.getAtivoButton().click()
-          //E clica em "Enviar"
+          //And click "Send"
           registerPage.getEnviarButton().click()
-          //Então o sistema deve mostrar uma mensagem de confirmação (por exemplo, "Usuário Desativado com sucesso")      
+          //Then the system should show a confirmation message (e.g. "User Deactivated Successfully")      
           cy.get('app-users-list > .navbar > .container-fluid').should('have.text', ' Lista de Usuários ')  
     })
 
-    it("TC005.002 - Tentativa de Desbloquear um Usuário Já Desbloqueado", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+    it("TC005.002 - Attempt to Unblock an Already Unblocked User", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()
-          //E clica no ícone "Lápis" referente ao usuário existente
+          //And click on the "Pencil" icon for the existing user
           registerPage.getPencilButton().click()
-          //Quando clica no botão "Desativar" do Formulário de Cadastro
+          //When you click on the "Deactivate" button on the Registration Form
           registerPage.getAtivoButton().click()
-          //E clica em "Enviar"
+          //And click "Send"
           registerPage.getEnviarButton().click()
-          //E retorna para a Lista de Usuários      
+          //And returns to the User List      
           cy.get('app-users-list > .navbar > .container-fluid').should('have.text', ' Lista de Usuários ')  
-          //E clica novamente no ícone "Lápis" referente ao usuário existente
+          //And click again on the "Pencil" icon for the existing user
           registerPage.getPencilButton().click()
-          //Então o botão "Desativar" deve estar clicado
+          //Then the "Deactivate" button must be clicked
           registerPage.getAtivoButton().click().should('be.visible').and('be.enabled')
     }) 
 

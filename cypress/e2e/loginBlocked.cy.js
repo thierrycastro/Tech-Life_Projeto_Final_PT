@@ -3,52 +3,52 @@ import RegisterPage from "../page-object/registerPage"
 const registerPage = new RegisterPage
 const loginPage = new LoginPage
 
-describe('Cenário: 006 - Login por um usuário bloqueado', () => {
+describe('Scenario: 006 - Login by a blocked user', () => {
 
-    it("TC006.001 - Tentativa de Login com Usuário Bloqueado", () => {
-          //(Pre-condição)
+    it("TC006.001 - Login Attempt with Blocked User", () => {
+          //(Precondition)
           loginPage.standardLogin()       
         
-          //(Bloqueio do usuário)
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+          //(User blocking)
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()          
-          //E clica no ícone "Lápis" referente ao usuário existente
+          //And click on the "Pencil" icon for the existing user
           registerPage.getPencilButton().click()
-          //E clica no botão "Desativar" do Formulário de Cadastro
+          //And click on the "Deactivate" button on the Registration Form
           registerPage.getDesativadoButton().click()
-          //E clica em "Enviar"
+          //And click "Send"
           registerPage.getEnviarButton().click()
-          //E o sistema volta a Lista de Usuários      
+          //And the system returns to the User List      
           cy.get('app-users-list > .navbar > .container-fluid').should('have.text', ' Lista de Usuários ') 
-          //E clica no ícone "Lápis" referente ao usuário existente que foi bloqueado
+          //And click on the "Pencil" icon for the existing user que foi bloqueado
           registerPage.getPencilButton().click()
-          //E confirma se o mesmo está desativado
+          //And confirm if it is deactivated
           registerPage.getDesativadoButton().should('be.visible').and('be.enabled') 
 
-          //(Realizar login do usuário desativado)
-          //Quando faz o logout
+          //(Log in disabled user)
+          //When you log out
           registerPage.getLogout().click()
-          //E insere o e-mail do usuário bloqueado
+          //And enter the blocked user's email
           loginPage.getEmail().type("rrrr@gmail.com")
-          //E insere a senha do usuário bloqueado
+          //And enter the password of the blocked user
           loginPage.getPassword().type("12345")
-          //E clica no botão "Entrar"
+          //And click on the "Enter" button
           loginPage.getLoginButton().click()
-          //Então o usuário acessa sua conta
+          //Then the user accesses their account
           cy.get('h4.mt-5').should('have.text', 'Painel do Professor')  
     })
 
-    it("TC006.002 - Tentativa de Login com Usuário Bloqueado (Senha Incorreta)", () => {
-          //Dado que o usuário esteja na página de login
+    it("TC006.002 - Login Attempt with Blocked User (Incorrect Password)", () => {
+          //Given that the user is on the login page
           cy.visit(Cypress.env('url'))
-          //Quando insere o e-mail do usuário bloqueado
+          //When entering the blocked user's email
           loginPage.getEmail().type("rrrr@gmail.com")
-          //E insere a senha errada do usuário bloqueado
+          //And enter the wrong password of the blocked user
           loginPage.getPassword().type("45678")
-          //E clica no botão "Entrar"
+          //And click on the "Enter" button
           loginPage.getLoginButton().click()
-          //Então o usuário mão acessa sua conta
+          //Then the user does not access their account
           loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')
     })
 

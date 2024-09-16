@@ -3,203 +3,202 @@ import RegisterPage from "../page-object/registerPage"
 const registerPage = new RegisterPage
 const loginPage = new LoginPage
 
-describe('Cenário: 001 - Cadastro de um novo usuário', () => {
+describe('Scenario: 001 - Registering a new user', () => {
 
     beforeEach(() => {
             loginPage.standardLogin()
     })
     
-     it("TC001.001 - Cadastro de um novo usuário (Aluno) Happy Path", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+     it("TC001.001 - Registering a new user", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("Josué Antônio Raimundo")
-          //E preenche o campo "E-mail"
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345@gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
+          //And click on the "Send" button
           registerPage.getEnviarButton().click()
-          //Então o sistema mostra o Painel do Administrador com o nome do usuário cadastrado
+          //Then the system shows the Administrator Panel with the registered user name
           cy.get('h4.mt-5').should('have.text', 'Painel do Administrador')   
     })  
     
-    it("TC001.002 - Cadastro sem preenchimentos", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.002 - Registration without filling out", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E não preenche o campo "Nome"
-          //E não preenche o campo "E-mail" 
-          //E não preenche o campo "Senha"
-          //E não seleciono o o perfil de usuário
-          //E não preenche o campo "Ativo"
-          //E clicar no botão "Enviar"
+          //And don't fill in the "Name" field
+          //And don't fill in the "E-mail" field 
+          //And don't fill in the "Password" field
+          //And I don't select the user profile
+          //And it doesn't fill in the "Active" field
+          //And click on the "Send" button
           registerPage.getEnviarButton().should('be.visible').and('be.disabled')
-          //Então o cadastro não é realizado e o usuário permanece na página de Formulário de Cadastro 
+          //Then the registration is not carried out and the user remains on the Registration Form page 
           cy.get('h2').should('have.text', 'Formulário de Cadastro')   
     })
 
-    it("TC001.003 - Cadastro e-mail sem @", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.003 - Email registration without @", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("Josué Antônio Raimundo")
-          //E preenche o campo "E-mail"
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
+          //And click on the "Send" button
           registerPage.getEnviarButton().click()
-          //Então o sistema gera uma mensagem de erro
+          //Then the system generates an error message
           registerPage.getErrorMsg().should('have.text', 'Preencher e-mail corretamente')   
     })
 
-    it("TC001.004 - Cadastro sem nome", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.004 - Nameless registration", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E não preenche o campo "Nome"
-          //E preenche o campo "E-mail"
+          //And don't fill in the "Name" field
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345@gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
+          //And click on the "Send" button
           registerPage.getEnviarButton().should('be.visible').and('be.disabled')
-          //Então o cadastro não é realizado e o usuário permanece na página de Formulário de Cadastro 
+          //Then the registration is not carried out and the user remains on the Registration Form page 
           cy.get('h2').should('have.text', 'Formulário de Cadastro')  
     }) 
 
-    it("TC001.005 - Cadastro sem e-mail", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.005 - Registration without email", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("Josué Antônio Raimundo")
-          //E não preenche o campo "E-mail"
-          //E preenche o campo "Senha"
+          //And don't fill in the "E-mail" field
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
-          //registerPage.getEnviarButton().click()
+          //And click on the "Send" button
           registerPage.getEnviarButton().should('be.visible').and('be.disabled')
-          //Então o cadastro não é realizado e o usuário permanece na página de Formulário de Cadastro 
+          //Then the registration is not carried out and the user remains on the Registration Form page 
           cy.get('h2').should('have.text', 'Formulário de Cadastro')
     }) 
 
-    it("TC001.006 - Cadastro nome com Emoji", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.006 - Register name with Emoji", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻")
-          //E preenche o campo "E-mail"
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345@gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
+          //And click on the "Send" button
           registerPage.getEnviarButton().click()
-          //Então o sistema gera uma mensagem de erro
+          //Then the system generates an error message
           registerPage.getErrorMsg().should('have.text', 'Preencher o campo Nome apenas com letras')   
     })
 
-    it("TC001.007 - Cadastro nome com Caracteres Especiais", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.007 - Register name with Special Characters", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("!!!!!!!!")
-          //E preenche o campo "E-mail"
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345@gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
+          //And click on the "Send" button
           registerPage.getEnviarButton().click()
-          //Então o sistema gera uma mensagem de erro
+          //Then the system generates an error message
           registerPage.getErrorMsg().should('have.text', 'Preencher o campo Nome apenas com letras') 
     })
 
-    it("TC001.008 - Cadastro nome com números", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.008 - Register name with numbers", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("23456789")
-          //E preenche o campo "E-mail"
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345@gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de usuário
+          //And select the user profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Enviar"
+          //And click on the "Send" button
           registerPage.getEnviarButton().click()
-          //Então o sistema gera uma mensagem de erro
+          //Then the system generates an error message
           registerPage.getErrorMsg().should('have.text', 'Preencher o campo Nome apenas com letras')   
     }) 
 
-      it("TC001.009 - Tentar realizar a duplicidade de um cadastro", () => {
-            //Dado que o usuário esteja na página "Painel do Administrador"
-            //Quando clica no botão "Adicionar Usuários"
+      it("TC001.009 - Trying to duplicate a registration", () => {
+            //Given that the user is on the "Administrator Panel" page
+            //When you click on the "Add Users" button
             registerPage.getAdicionarButton().click()
-            //E preenche o campo "Nome"
+            //And fill in the "Name" field
             registerPage.getName().type("Josué Antônio Raimundo")
-            //E preenche o campo "E-mail"
+            //And fill in the "Email" field
             registerPage.getEmail().type("worktests345@gmail.com")
-            //E preenche o campo "Senha"
+            //And fill in the "Password" field
             registerPage.getPassword().type("^tqhQFc6")
-            //E seleciona o perfil de usuário
+            //And select the user profile
             registerPage.getSelectAluno().select('Aluno')
-            //E em Status deixa na opção "Ativo"
+            //And in Status leave the option "Active"
             registerPage.getAtivoButton().click()
-            //E clicar no botão "Enviar"
+            //And click on the "Send" button
             registerPage.getEnviarButton().click()
-            //Então o sistema gera uma mensagem de erro
+            //Then the system generates an error message
             registerPage.getErrorMsg().should('have.text', 'Este usuário ou e-mail já está em uso.')  
       })  
 
-    it("TC001.010 - Limpar Formulário", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //Quando clica no botão "Adicionar Usuários"
+    it("TC001.010 - Clear Form", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //When you click on the "Add Users" button
           registerPage.getAdicionarButton().click()
-          //E preenche o campo "Nome"
+          //And fill in the "Name" field
           registerPage.getName().type("Josué Antônio Raimundo")
-          //E preenche o campo "E-mail"
+          //And fill in the "Email" field
           registerPage.getEmail().type("worktests345@gmail.com")
-          //E preenche o campo "Senha"
+          //And fill in the "Password" field
           registerPage.getPassword().type("^tqhQFc6")
-          //E seleciona o perfil de Aluno
+          //And select the Student profile
           registerPage.getSelectAluno().select('Aluno')
-          //E em Status deixa na opção "Ativo"
+          //And in Status leave the option "Active"
           registerPage.getAtivoButton().click()
-          //E clicar no botão "Limpar"
+          //And click on the "Clear" button
           registerPage.getLimparButton().click()
-          //Então o sistema se mantém na página de registro e apaga todo o formulário para o usuário preencher novamente
+          //Then the system stays on the registration page and deletes the entire form for the user to fill in again
           cy.url().should('eq', 'http://13.37.224.17:4200/')
     })
 

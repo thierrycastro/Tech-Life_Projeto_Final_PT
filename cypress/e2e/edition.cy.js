@@ -3,59 +3,59 @@ import RegisterPage from "../page-object/registerPage"
 const registerPage = new RegisterPage
 const loginPage = new LoginPage
 
-describe('Cenário: 002 - Edição das informações de um usuário existente', () => {
+describe("Scenario: 002 - Editing an existing user's information", () => {
 
     beforeEach(() => {
        loginPage.standardLogin()
     })
 
     
-    it("TC002.001 - Editar Nome de um usuário com sucesso", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+    it("TC002.001 - Edit a user's name successfully", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()
-          //E clica no ícone "Lápis" referente ao nome do aluno existente
+          //And click on the "Pencil" icon corresponding to the existing student's name
           registerPage.getPencilButton().click()
-          //Quando altera o Nome dele na Tela de Cadastro
+          //When you change his Name on the Registration Screen
           registerPage.getName().clear().type("Josué Antônio Raimundo Pereirão Domingues")
-          //E clica em "Enviar"
+          //And click "Send"
           registerPage.getEnviarButton().click()
-          //Então as alterações devem ser salvas e refletidas imediatamente no perfil do usuário        
+          //Then the changes should be saved and reflected immediately in the user profile        
           cy.get(":nth-child(8) > th").should('have.text', 'Josué Antônio Raimundo Pereirão Domingues')   
     }) 
 
-    it("TC002.002 - Editar E-mail de um usuário com sucesso", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+    it("TC002.002 - Edit a user's email successfully", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()
-          //E clica no ícone "Lápis" referente ao nome do aluno existente
+          //And click on the "Pencil" icon corresponding to the existing student's name
           registerPage.getPencilButton().click()
-          //Quando altera o E-mail dele na Tela de Cadastro
+          //When you change your email address on the Registration Screen
           registerPage.getEmail().clear().type("worktests999@gmail.com")
-          //E clica em "Enviar"
+          //And click "Send"
           registerPage.getEnviarButton().click()
-          //Então as alterações devem ser salvas e refletidas imediatamente no perfil do usuário        
+          //Then the changes should be saved and reflected immediately in the user profile        
           cy.get(":nth-child(8) > :nth-child(2)").should('have.text', 'worktests999@gmail.com')   
     }) 
 
-    it("TC002.003 - Identificar o Status do usuário", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+    it("TC002.003 - Identify user Status", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()
-          //Quando clica no ícone "Lápis" referente ao nome do aluno existente
+          //When you click on the "Pencil" icon for the existing student's name
           registerPage.getPencilButton().click()
-          //Então verifica se o Status do Aluno está Ativo
+          //Then check if the Student Status is Active
           registerPage.getAtivoButton().should('be.visible')
           .and('be.enabled')
     })    
 
-    it("TC002.004 - Excluir Usuário", () => {
-          //Dado que o usuário esteja na página "Painel do Administrador"
-          //E clica no botão "Listar Usuários"
+    it("TC002.004 - Delete User", () => {
+          //Given that the user is on the "Administrator Panel" page
+          //And click on the "List Users" button
           registerPage.getListarButton().click()
-          //E clica no ícone "Lixeira" referente ao nome do aluno existente
+          //And click on the "Trash" icon corresponding to the existing student's name
           registerPage.getBinButton().click()
-          //Então o sistema deve excluir o usuário e continuar na página Painel do Administrador"
+          //Then the system should delete the user and continue to the Administrator Panel page"
           cy.get('h4.mt-5').should('have.text', 'Painel do Administrador')  
     })
 })

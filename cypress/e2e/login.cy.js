@@ -3,130 +3,130 @@ import RegisterPage from "../page-object/registerPage"
 const registerPage = new RegisterPage
 const loginPage = new LoginPage
 
-describe("Cenário: 007 - Login", () => {
+describe("Scenario: 007 - Login", () => {
 
     beforeEach(() => {
     cy.visit(Cypress.env('url'))      
     })
     
-    it("TC007.001 - Login com credenciais válidas", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere suas credenciais válidas
+    it("TC007.001 - Login with valid credentials", () => {
+            //Given that the user is on the login screen
+            //And enter your credentials
             loginPage.getEmail().type('rrrr@gmail.com')
             loginPage.getPassword().type('12345')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário deve ser autenticado e redirecionado para sua área respectiva
+            //Then the user must be authenticated and redirected to their respective area
             cy.get('h4.mt-5').should('have.text', 'Painel do Professor')     
     })
 
-    it("TC007.002 - Logout com sucesso", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere suas credenciais
+    it("TC007.002 - Logout successfully", () => {
+            //Given that the user is on the login screen
+            //And enter your credentials
             loginPage.getEmail().type('rrrr@gmail.com')
             loginPage.getPassword().type('12345')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //E é redirecionado para sua área respectiva
+            //And it is redirected to its respective area
             cy.get('h4.mt-5').should('have.text', 'Painel do Professor')  
-            //E clica no botão "Logout"
+            //And click on the "Logout" button
             registerPage.getLogout().click()
-            //Então o usuário deve ser desconectado do sistema
+            //Then the user must be disconnected from the system
             cy.get('.btn').should('have.text', 'Entrar')
     })
 
-    it("TC007.003 - Login sem credenciais", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E não insere suas credenciais
-            //Quando clica no botão "Entrar"
+    it("TC007.003 - Login without credentials", () => {
+            //Given that the user is on the login screen
+            //And does not enter your credentials
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')       
     })
 
-    it("TC007.004 - Login inválido com password vazia", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere seu e-mail
+    it("TC007.004 - Invalid login with empty password", () => {
+            //Given that the user is on the login screen
+            //And enter your email
             loginPage.getEmail().type('rrrr@gmail.com')
-            //E não insere sua senha
-            //Quando clica no botão "Entrar"
+            //And don't enter your password
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')    
     })
 
-    it("TC007.005 - Login inválido com e-mail vazio", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E não insere seu e-mail
-            //E insere sua senha
+    it("TC007.005 - Invalid login with empty email", () => {
+            //Given that the user is on the login screen
+            //And don't enter your email
+            //And enter your password
             loginPage.getPassword().type('12345')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')    
     })
 
-    it("TC007.006 - Login com e-mail inválido", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere seu e-mail inválido
+    it("TC007.006 - Login with invalid email", () => {
+            //Given that the user is on the login screen
+            //And enter your invalid email
             loginPage.getEmail().type('rrssss@gmail.com')
-            //E insere sua senha
+            //And enter your password
             loginPage.getPassword().type('12345')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')    
     })
 
-    it("TC007.007 - Login com password inválida (Emoji)", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere seu e-mail inválido
+    it("TC007.007 - Login with invalid password (Emoji)", () => {
+            //Given that the user is on the login screen
+            //And enter your invalid email
             loginPage.getEmail().type('rrrr@gmail.com')
-            //E insere sua senha
+            //And enter your password
             loginPage.getPassword().type('🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻🤘🏻')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')    
     })
 
-    it("TC007.008 - Login com password inválida (Caracteres Especiais)", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere seu e-mail inválido
+    it("TC007.008 - Login with invalid password (Special Characters)", () => {
+            //Given that the user is on the login screen
+            //And enter your invalid email
             loginPage.getEmail().type('rrrr@gmail.com')
-            //E insere sua senha
+            //And enter your password
             loginPage.getPassword().type('!!!!!!!!')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')    
     })
 
-    it("TC007.009 - Login com password inválida (com espaçamento)", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere seu e-mail
+    it("TC007.009 - Login with invalid password (with spacing)", () => {
+            //Given that the user is on the login screen
+            //And enter your e-mail
             loginPage.getEmail().type('rrrr@gmail.com')
-            //E insere sua senha válida com espaço no final
+            //And enter your password válida com espaço no final
             loginPage.getPassword().type('12345 ')
-            //Quando clica no botão "Entrar"
+            //When you click on the "Enter" button
             loginPage.getLoginButton().click()
-            //Então o usuário não acessa sua área respectiva
+            //Then the user does not access their respective area
             loginPage.getErrorMsg().should('have.text', 'Login ou senha invalidos, tente novamente')    
     })
 
-    it("TC007.010 - Atualizar a Página", () => {
-            //Dado que o usuário esteja na Tela de Login
-            //E insere seu e-mail
+    it("TC007.010 - Refresh the Page", () => {
+            //Given that the user is on the login screen
+            //And enter your e-mail
             loginPage.getEmail().type('rrrr@gmail.com')
-            //E insere sua senha
+            //And enter your password
             loginPage.getPassword().type('12345')
-            //E clica no botão "Entrar"
+            //And click on the "Enter" button
             loginPage.getLoginButton().click()
-            //E acessa sua área respectiva
+            //And access its respective area
             cy.get('h4.mt-5').should('have.text', 'Painel do Professor')
-            //Quando clica no botão "atualizar" do navegador
+            //When you click the "refresh" button on your browser
             cy.reload()
-            //Então o usuário deve permanecer na sua área respectiva atualizada
+            //Then the user must remain in their respective updated area
             cy.get('h4.mt-5').should('have.text', 'Painel do Professor')
     })
 
