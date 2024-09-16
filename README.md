@@ -18,6 +18,7 @@ Conformidade: Assegurar que o sistema esteja em conformidade com os requisitos f
 - Dispositivos: Desktop
 - Sistema Operacional: Windows 10
 - Ferramenta de Teste: Cypress v13.14.2
+- Linguagem: JavaScript
 
 ### Pré-condições
 1. O ambiente de teste deve estar configurado e acessível.
