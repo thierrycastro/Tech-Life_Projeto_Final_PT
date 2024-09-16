@@ -25,6 +25,7 @@ Conformidade: Assegurar que o sistema esteja em conformidade com os requisitos f
 
 ### Para a execução do teste:
 Execute o Cypress: npx cypress open
+
 Execute o Cypress para um arquivo individual: npx cypress run --spec "cypress/e2e/nome-do-arquivo.cy.js"
 
 ### Notas
